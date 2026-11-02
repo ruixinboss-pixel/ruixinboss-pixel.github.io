@@ -9,7 +9,7 @@
     <!-- 搜尋引擎顯示的標題與簡介 -->
     <title>材料成本計算器</title>
     <meta name="description" content="提供鋁合金、不鏽鋼、銅、鐵等常見金屬材質的線上重量與成本計算工具。支援板材、圓棒、管材尺寸快速換算與單價估算。">
-    <meta name="keywords" content="金屬計算器, 材質成本計算, 鋁合金重量計算, 不鏽鋼換算, 鋼材重量估算">
+    <meta name="keywords" content="金屬計算器, 材料成本計算, 鋁合金重量計算, 不鏽鋼換算, 鋼材重量估算">
     
     <!-- 社群分享預覽（Line / FB 傳送時顯示） -->
     <meta property="og:title" content="材料成本計算器">
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ruixinboss-pixel.github.io/">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Google AdSense 官方 script (請將 YOUR_CLIENT_ID 換成你自己的 AdSense Publisher ID，例如 ca-pub-XXXXXXXXXXXXXXXX) -->
+    <!-- 引入 Google AdSense 官方 script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2556893281750299" crossorigin="anonymous"></script>
     <script>
         tailwind.config = {
@@ -117,7 +117,7 @@
         </div>
     </div>
 
-    <!-- 其他子頁面 (選擇材質、設定、歷史紀錄等...) 保持不變 -->
+    <!-- 選擇材質頁面 -->
     <div id="materialSelectorView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center pt-4">
             <button onclick="switchView('mainView')" class="bg-cardBg border border-borderGray p-2.5 rounded-full text-accentYellow">
@@ -148,6 +148,7 @@
         </div>
     </div>
 
+    <!-- 設定頁面 -->
     <div id="settingsView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center pt-4">
             <button onclick="switchView('mainView')" class="bg-cardBg border border-borderGray px-4 py-2 rounded-2xl text-accentYellow text-sm font-medium">完成</button>
@@ -173,6 +174,16 @@
                 </div>
             </div>
         </div>
+        
+        <!-- 新增：隱私權政策連結按鈕 -->
+        <div onclick="switchView('privacyView')" class="bg-cardBg border border-borderGray rounded-2xl p-4 flex justify-between items-center cursor-pointer hover:bg-inputBg transition">
+            <div class="flex items-center space-x-3">
+                <span class="text-accentYellow font-bold">🔒</span>
+                <span class="text-slate-200">隱私權政策 (Privacy Policy)</span>
+            </div>
+            <span class="text-slate-400">›</span>
+        </div>
+
         <div onclick="switchView('customMaterialView')" class="bg-cardBg border border-borderGray rounded-2xl p-4 flex justify-between items-center cursor-pointer hover:bg-inputBg transition">
             <div class="flex items-center space-x-3">
                 <span class="text-accentYellow font-bold">📑</span>
@@ -182,6 +193,35 @@
         </div>
     </div>
 
+    <!-- 新增：隱私權政策頁面 -->
+    <div id="privacyView" class="max-w-md mx-auto p-4 space-y-6 hidden">
+        <div class="flex items-center pt-4">
+            <button onclick="switchView('settingsView')" class="bg-cardBg border border-borderGray p-2.5 rounded-full text-accentYellow">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <h2 class="text-lg font-bold flex-1 text-center mr-10">隱私權政策</h2>
+        </div>
+        <div class="bg-cardBg border border-borderGray rounded-2xl p-5 text-sm text-slate-300 space-y-4">
+            <h3 class="text-base font-bold text-slate-100">材料成本計算器 隱私權政策</h3>
+            <p>最後更新日期：2026年11月2日</p>
+            <p>「材料成本計算器」（以下簡稱「本應用程式」）相當重視使用者的隱私權。本隱私權政策說明本應用程式如何處理您的相關資訊。</p>
+            
+            <h4 class="font-bold text-slate-200 mt-2">1. 資料收集與使用</h4>
+            <p>本應用程式的所有材質計算功能（如板材、圓棒、管材重量與成本計算）皆於您的裝置本地端執行。我們不會收集或上傳您的任何尺寸輸入資料或計算結果至外部伺服器。</p>
+
+            <h4 class="font-bold text-slate-200 mt-2">2. 第三方服務與廣告</h4>
+            <p>本應用程式可能使用 Google AdSense 或 Google AdMob 顯示廣告，這些第三方服務可能會使用 cookies 或識別碼來提供符合您興趣的廣告內容。您可以透過 Google 帳戶設定管理您的廣告偏好。</p>
+
+            <h4 class="font-bold text-slate-200 mt-2">3. 本地儲存資料</h4>
+            <p>應用程式可能會將您的歷史計算紀錄儲存於您行動裝置的本機儲存空間（LocalStorage）中，以便您隨時查閱。這些資料僅保留在您的裝置內，不會傳輸。</p>
+
+            <h2 class="text-base font-bold text-slate-100 pt-2">5. 聯絡我們</h2>
+<p>如果您對本隱私權政策有任何疑問或建議，歡迎透過以下方式與我們聯繫：<br>
+電子郵件：ruixinpcl@gmail.com</p>
+        </div>
+    </div>
+
+    <!-- 自訂材質頁面 -->
     <div id="customMaterialView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center pt-4">
             <button onclick="switchView('settingsView')" class="bg-cardBg border border-borderGray p-2.5 rounded-full text-accentYellow">
@@ -205,6 +245,7 @@
         </div>
     </div>
 
+    <!-- 新增自訂材質頁面 -->
     <div id="addCustomMaterialView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center justify-between pt-4">
             <div class="flex items-center space-x-3">
@@ -226,6 +267,7 @@
         </div>
     </div>
 
+    <!-- 歷史紀錄頁面 -->
     <div id="historyView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center pt-4">
             <button onclick="switchView('mainView')" class="bg-cardBg border border-borderGray p-2.5 rounded-full text-accentYellow">
@@ -242,6 +284,7 @@
         </div>
     </div>
 
+    <!-- 歷史紀錄詳情頁面 -->
     <div id="historyDetailView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center pt-4">
             <button onclick="switchView('historyView')" class="bg-cardBg border border-borderGray px-4 py-2 rounded-2xl text-accentYellow text-sm font-medium">關閉</button>
@@ -252,7 +295,6 @@
 
     <!-- 真實 Google AdSense 底部橫幅廣告放置區 -->
     <div class="fixed bottom-0 left-0 right-0 bg-white text-slate-900 py-1 px-2 flex justify-center shadow-lg z-50 max-w-md mx-auto border-t border-slate-300">
-        <!-- Google AdSense 廣告單元 -->
         <ins class="adsbygoogle"
              style="display:inline-block;width:320px;height:50px"
              data-ad-client="ca-pub-2556893281750299"
@@ -262,16 +304,13 @@
         </script>
     </div>
 
-    <!-- 增加 SEO 與審核用的內容說明區塊 -->
-<section class="max-w-md mx-auto p-4 mt-6 text-slate-400 text-sm space-y-3 bg-cardBg border border-borderGray rounded-2xl">
-    <h2 class="text-slate-200 font-bold text-base">關於金屬材質成本計算器</h2>
-    <p>
-        本工具提供免費的線上金屬與塑膠材質重量與成本試算服務。支援<strong>板材、圓棒、管材</strong>等常見工業形狀，並涵蓋鋁合金、不鏽鋼、中碳鋼、黃銅、紅銅及各種工程塑膠（如壓克力 PMMA、PC 等）的密度與單價換算。
-    </p>
-    <p>
-        只要輸入長度、寬度、厚度或直徑等尺寸，系統即可即時幫您計算出材料的體積、總重量以及預估採購總價，是工程估價與金屬加工的好幫手。
-    </p>
-</section>
+    <!-- 關於說明區塊 -->
+    <section class="max-w-md mx-auto p-4 mt-6 text-slate-400 text-sm space-y-3 bg-cardBg border border-borderGray rounded-2xl">
+        <h2 class="text-slate-200 font-bold text-base">關於金屬材質成本計算器</h2>
+        <p>
+            本工具提供免費的線上金屬與塑膠材質重量與成本試算服務。支援<strong>板材、圓棒、管材</strong>等常見工業形狀，並涵蓋鋁合金、不鏽鋼、中碳鋼、黃銅、紅銅及各種工程塑膠的密度與單價換算。
+        </p>
+    </section>
 
     <!-- JavaScript 邏輯 -->
     <script>
@@ -302,7 +341,8 @@
         };
 
         function switchView(viewId) {
-            ['mainView', 'materialSelectorView', 'historyView', 'historyDetailView', 'settingsView', 'customMaterialView', 'addCustomMaterialView'].forEach(id => {
+            // 包含新加入的 privacyView
+            ['mainView', 'materialSelectorView', 'historyView', 'historyDetailView', 'settingsView', 'customMaterialView', 'addCustomMaterialView', 'privacyView'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
             document.getElementById(viewId).classList.remove('hidden');
