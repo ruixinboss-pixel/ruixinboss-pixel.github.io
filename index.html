@@ -336,7 +336,7 @@
             本工具提供免費的線上金屬與塑膠材質重量與成本試算服務。支援<strong>板材、圓棒、管材</strong>等常見工業形狀，並涵蓋鋁合金、不鏽鋼、中碳鋼、黃銅、紅銅及各種工程塑膠的密度與單價換算。
         </p>
     </section>
-
+    
     <!-- JavaScript 邏輯 -->
     <script>
         let currentShape = 'plate';
@@ -366,6 +366,27 @@
             ],
             custom: []
         };
+
+        // 【新增】從 localStorage 讀取自訂材質
+        function loadCustomMaterials() {
+            const savedCustom = localStorage.getItem('user_custom_materials');
+            if (savedCustom) {
+                try {
+                    categoriesData.custom = JSON.parse(savedCustom);
+                } catch (e) {
+                    console.error('解析自訂材質資料失敗', e);
+                    categoriesData.custom = [];
+                }
+            }
+        }
+
+        // 【新增】將自訂材質寫入 localStorage
+        function saveCustomMaterialsToStorage() {
+            localStorage.setItem('user_custom_materials', JSON.stringify(categoriesData.custom));
+        }
+
+        // 初始化時先載入資料
+        loadCustomMaterials();
 
         function switchView(viewId) {
             ['mainView', 'materialSelectorView', 'historyView', 'historyDetailView', 'settingsView', 'customMaterialView', 'addCustomMaterialView', 'privacyView'].forEach(id => {
@@ -510,6 +531,7 @@
 
         function deleteCustomMaterial(index) {
             categoriesData.custom.splice(index, 1);
+            saveCustomMaterialsToStorage(); // 【修改】儲存更新後的狀態
             renderCustomMaterialList();
         }
 
@@ -539,6 +561,7 @@
 
             if(editingCustomIndex !== -1) {
                 categoriesData.custom[editingCustomIndex] = { name, density, price };
+                saveCustomMaterialsToStorage(); // 【修改】儲存更新後的狀態
                 renderCustomMaterialList();
                 closeEditModal();
             }
@@ -555,6 +578,8 @@
             }
 
             categoriesData.custom.push({ name, density, price });
+            saveCustomMaterialsToStorage(); // 【修改】儲存更新後的狀態
+
             document.getElementById('newMatName').value = '';
             document.getElementById('newMatDensity').value = '';
             document.getElementById('newMatPrice').value = '';
