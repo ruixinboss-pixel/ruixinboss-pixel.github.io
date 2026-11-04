@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    
     <!-- 搜尋引擎顯示的標題與簡介 -->
     <title>材料成本計算器</title>
     <meta name="description" content="提供鋁合金、不鏽鋼、銅、鐵等常見金屬材質的線上重量與成本計算工具。支援板材、圓棒、管材尺寸快速換算與單價估算。">
@@ -75,15 +74,26 @@
         <div class="space-y-3">
             <div class="flex justify-between items-center">
                 <label class="text-sm font-medium text-slate-400">尺寸與單價 (<span id="unitLabelIndicator">mm</span>)</label>
-                <span class="text-xs text-accentYellow bg-accentYellow/10 border border-accentYellow/30 px-2 py-0.5 rounded-md flex items-center space-x-1">
-                    <span>💡 提示：輸入完成可以按 Enter 鍵可切換至下一格</span>
-                </span>
             </div>
+            
+            <!-- 提示區塊改成兩行 1 與 2 -->
+            <div class="text-xs text-accentYellow bg-accentYellow/10 border border-accentYellow/30 p-2.5 rounded-xl space-y-1">
+                <div class="flex items-center space-x-1.5">
+                    <span>提示:</span>
+                </div>
+                <div class="pl-5 space-y-0.5">
+                    <div>輸入完成可按 Enter 鍵，將游標切換至下一個輸入框</div>
+                    <div>點擊鎖頭按鍵，可鎖住已輸入單價</div>
+                </div>
+            </div>
+
             <div id="dimensionInputsContainer" class="grid grid-cols-3 gap-2"></div>
             <div class="relative flex items-center">
-                <input type="number" id="unitPrice" placeholder="單價 (元/kg)" class="w-full bg-inputBg border border-borderGray rounded-xl py-3 px-4 text-center text-slate-100 focus:outline-none focus:border-accentYellow placeholder-slate-500" onkeydown="handleEnter(event, 'unitPrice')">
-                <button onclick="toggleLockPrice()" id="lockBtn" class="absolute right-4 text-accentYellow">
-                    <svg id="lockIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                <input type="number" id="unitPrice" placeholder="單價 (元/kg)" class="w-full bg-inputBg border border-borderGray rounded-xl py-3 pl-4 pr-12 text-center text-slate-100 focus:outline-none focus:border-accentYellow placeholder-slate-500 transition-all duration-200" onkeydown="handleEnter(event, 'unitPrice')">
+                <button onclick="toggleLockPrice()" id="lockBtn" class="absolute right-3 p-1.5 text-slate-400 hover:text-accentYellow transition-colors focus:outline-none" title="鎖定/解鎖單價">
+                    <svg id="lockIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -175,7 +185,6 @@
             </div>
         </div>
         
-        <!-- 新增：隱私權政策連結按鈕 -->
         <div onclick="switchView('privacyView')" class="bg-cardBg border border-borderGray rounded-2xl p-4 flex justify-between items-center cursor-pointer hover:bg-inputBg transition">
             <div class="flex items-center space-x-3">
                 <span class="text-accentYellow font-bold">🔒</span>
@@ -193,7 +202,7 @@
         </div>
     </div>
 
-    <!-- 新增：隱私權政策頁面 -->
+    <!-- 隱私權政策頁面 -->
     <div id="privacyView" class="max-w-md mx-auto p-4 space-y-6 hidden">
         <div class="flex items-center pt-4">
             <button onclick="switchView('settingsView')" class="bg-cardBg border border-borderGray p-2.5 rounded-full text-accentYellow">
@@ -216,8 +225,8 @@
             <p>應用程式可能會將您的歷史計算紀錄儲存於您行動裝置的本機儲存空間（LocalStorage）中，以便您隨時查閱。這些資料僅保留在您的裝置內，不會傳輸。</p>
 
             <h2 class="text-base font-bold text-slate-100 pt-2">5. 聯絡我們</h2>
-<p>如果您對本隱私權政策有任何疑問或建議，歡迎透過以下方式與我們聯繫：<br>
-電子郵件：ruixinpcl@gmail.com</p>
+            <p>如果您對本隱私權政策有任何疑問或建議，歡迎透過以下方式與我們聯繫：<br>
+            電子郵件：ruixinpcl@gmail.com</p>
         </div>
     </div>
 
@@ -228,7 +237,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
             <h2 class="text-lg font-bold flex-1 text-center mr-10">自訂材質</h2>
-            <button class="text-accentYellow text-sm font-medium">Edit</button>
+            <button id="editCustomBtn" onclick="toggleEditCustomMaterial()" class="text-accentYellow text-sm font-medium">Edit</button>
         </div>
         <div class="space-y-3">
             <h3 class="text-sm font-medium text-slate-400">自訂材質清單</h3>
@@ -263,6 +272,22 @@
                 <div class="p-3"><input type="text" id="newMatName" placeholder="材質名稱" class="w-full bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none px-2 py-1"></div>
                 <div class="p-3"><input type="number" step="0.001" id="newMatDensity" placeholder="密度 (g/cm³)" class="w-full bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none px-2 py-1"></div>
                 <div class="p-3"><input type="number" step="0.01" id="newMatPrice" placeholder="預設單價 (元/kg)" class="w-full bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none px-2 py-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 編輯自訂材質彈出視窗 (Modal) -->
+    <div id="editCustomMaterialModal" class="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-cardBg border border-borderGray rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-xl">
+            <h3 class="text-lg font-bold text-slate-100 text-center">編輯材質</h3>
+            <div class="bg-inputBg border border-borderGray rounded-xl divide-y divide-borderGray overflow-hidden">
+                <div class="p-3"><input type="text" id="editMatName" placeholder="材質名稱" class="w-full bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none px-2 py-1"></div>
+                <div class="p-3"><input type="number" step="0.001" id="editMatDensity" placeholder="密度 (g/cm³)" class="w-full bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none px-2 py-1"></div>
+                <div class="p-3"><input type="number" step="0.01" id="editMatPrice" placeholder="預設單價 (元/kg)" class="w-full bg-transparent text-slate-100 placeholder-slate-500 focus:outline-none px-2 py-1"></div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="closeEditModal()" class="bg-inputBg border border-borderGray text-slate-300 py-2.5 rounded-xl font-medium hover:bg-borderGray transition">取消</button>
+                <button onclick="saveEditedCustomMaterial()" class="bg-accentYellow text-darkBg py-2.5 rounded-xl font-bold hover:bg-yellow-400 transition">更新儲存</button>
             </div>
         </div>
     </div>
@@ -321,6 +346,8 @@
         let currentUnitSystem = 'metric';
         let historyData = [];
         let isPriceLocked = false;
+        let isEditingCustom = false;
+        let editingCustomIndex = -1;
 
         const categoriesData = {
             metal: [
@@ -341,7 +368,6 @@
         };
 
         function switchView(viewId) {
-            // 包含新加入的 privacyView
             ['mainView', 'materialSelectorView', 'historyView', 'historyDetailView', 'settingsView', 'customMaterialView', 'addCustomMaterialView', 'privacyView'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
@@ -413,6 +439,12 @@
                 }
 
                 let currentIndex = inputs.indexOf(currentId);
+                
+                if (isPriceLocked && currentIndex === inputs.length - 2) {
+                    performCalculate();
+                    return;
+                }
+
                 if (currentIndex !== -1 && currentIndex < inputs.length - 1) {
                     let nextInput = document.getElementById(inputs[currentIndex + 1]);
                     if (nextInput) nextInput.focus();
@@ -440,6 +472,12 @@
             `).join('');
         }
 
+        function toggleEditCustomMaterial() {
+            isEditingCustom = !isEditingCustom;
+            document.getElementById('editCustomBtn').innerText = isEditingCustom ? 'Done' : 'Edit';
+            renderCustomMaterialList();
+        }
+
         function renderCustomMaterialList() {
             const container = document.getElementById('customMaterialListContainer');
             const list = categoriesData.custom;
@@ -447,14 +485,63 @@
                 container.innerHTML = `<div class="p-6 text-center text-slate-500 text-sm">目前沒有自訂材質</div>`;
                 return;
             }
-            container.innerHTML = list.map(mat => `
-                <div class="p-4 flex justify-between items-center">
-                    <div>
-                        <div class="text-slate-200 font-medium">${mat.name}</div>
-                        <div class="text-xs text-slate-500 mt-0.5">密度：${mat.density.toFixed(3)} g/cm³ ${mat.price ? `| 單價：${mat.price}元` : ''}</div>
+            
+            container.innerHTML = list.map((mat, index) => `
+                <div class="p-4 flex justify-between items-center transition">
+                    <div class="flex items-center space-x-3">
+                        ${isEditingCustom ? `
+                            <button onclick="deleteCustomMaterial(${index})" class="bg-rose-500/20 text-rose-500 hover:bg-rose-500 hover:text-white rounded-full w-6 h-6 flex items-center justify-center font-bold transition">
+                                -
+                            </button>
+                        ` : ''}
+                        <div>
+                            <div class="text-slate-200 font-medium">${mat.name}</div>
+                            <div class="text-xs text-slate-500 mt-0.5">密度：${mat.density.toFixed(3)} g/cm³ ${mat.price ? `| 單價：${mat.price}元` : ''}</div>
+                        </div>
                     </div>
+                    ${isEditingCustom ? `
+                        <button onclick="openEditModal(${index})" class="text-xs border border-accentYellow text-accentYellow px-3 py-1.5 rounded-lg hover:bg-accentYellow/10 transition">
+                            編輯
+                        </button>
+                    ` : ''}
                 </div>
             `).join('');
+        }
+
+        function deleteCustomMaterial(index) {
+            categoriesData.custom.splice(index, 1);
+            renderCustomMaterialList();
+        }
+
+        function openEditModal(index) {
+            editingCustomIndex = index;
+            const mat = categoriesData.custom[index];
+            document.getElementById('editMatName').value = mat.name;
+            document.getElementById('editMatDensity').value = mat.density;
+            document.getElementById('editMatPrice').value = mat.price || '';
+            document.getElementById('editCustomMaterialModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            editingCustomIndex = -1;
+            document.getElementById('editCustomMaterialModal').classList.add('hidden');
+        }
+
+        function saveEditedCustomMaterial() {
+            const name = document.getElementById('editMatName').value.trim();
+            const density = parseFloat(document.getElementById('editMatDensity').value);
+            const price = parseFloat(document.getElementById('editMatPrice').value) || 0;
+
+            if(!name || isNaN(density)) {
+                alert('請填寫完整的材質名稱與正確的密度！');
+                return;
+            }
+
+            if(editingCustomIndex !== -1) {
+                categoriesData.custom[editingCustomIndex] = { name, density, price };
+                renderCustomMaterialList();
+                closeEditModal();
+            }
         }
 
         function saveCustomMaterial() {
@@ -479,8 +566,16 @@
             currentDensity = density;
             document.getElementById('selectedMaterialText').innerText = name;
             document.getElementById('selectedDensityText').innerText = density.toFixed(3);
+            
             if(price > 0) {
                 document.getElementById('unitPrice').value = price;
+                if(!isPriceLocked) {
+                    toggleLockPrice();
+                }
+            } else {
+                if(isPriceLocked) {
+                    toggleLockPrice();
+                }
             }
             switchView('mainView');
         }
@@ -488,10 +583,19 @@
         function toggleLockPrice() {
             isPriceLocked = !isPriceLocked;
             const icon = document.getElementById('lockIcon');
+            const lockBtn = document.getElementById('lockBtn');
+            const unitPriceInput = document.getElementById('unitPrice');
+
             if(isPriceLocked) {
                 icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>';
+                lockBtn.className = "absolute right-3 p-1.5 text-accentYellow focus:outline-none";
+                unitPriceInput.disabled = true;
+                unitPriceInput.classList.add('opacity-60', 'cursor-not-allowed', 'border-accentYellow/50');
             } else {
                 icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>';
+                lockBtn.className = "absolute right-3 p-1.5 text-slate-400 hover:text-accentYellow transition-colors focus:outline-none";
+                unitPriceInput.disabled = false;
+                unitPriceInput.classList.remove('opacity-60', 'cursor-not-allowed', 'border-accentYellow/50');
             }
         }
 
@@ -585,10 +689,16 @@
         }
 
         function clearForm() {
-            ['dim1', 'dim2', 'dim3', 'unitPrice'].forEach(id => {
+            ['dim1', 'dim2', 'dim3'].forEach(id => {
                 let el = document.getElementById(id);
                 if(el) el.value = '';
             });
+            
+            if(!isPriceLocked) {
+                let priceEl = document.getElementById('unitPrice');
+                if(priceEl) priceEl.value = '';
+            }
+
             document.getElementById('resultCard').innerHTML = `<div class="text-slate-500">尚未進行計算...</div>`;
         }
 
